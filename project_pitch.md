@@ -77,23 +77,46 @@ Produces outputs that are meaningful for the business context
 # Timeline and Scope
 
 ## 1. Research and Preparation Phase
+[5/6/26 - 5/11/26] ~ 12 hours
 
 Demonstrate how your approach:
 
-Fulfills all project deliverable requirements
-Addresses the core business needs
-Balances technical performance with practical considerations
-Produces outputs that are meaningful for the business context
++ Fulfills all project deliverable requirements
++ Addresses the core business needs
++ Balances technical performance with practical considerations
++ Produces outputs that are meaningful for the business context
+
+lit review of dialogue summarization and BERT-based architectures
+acquire datasets and EDA for conversation structure, length dist. summariation patterns
+preprocessing pipeline sketch and confirm model architecture direction
 
 ## 2. Implementation Phases
 
+
 Break down the project into time-bound stages:
 
-Data preprocessing and exploration
-Model architecture implementation
-Training setup and optimization
-Evaluation and analysis
-Documentation and reporting
+Data preprocessing and exploration [5/6/26 - 5/11/26]
+[ ] EDA - conv. lengths, turn counts, summary quality, class distributions
+[ ] raw dialogues cleaned, tokenized, formatted for BERT (truncation, padding)
+
+Model architecture implementation [5/12/26 - 5/19/26]
+[ ] configure pre-trained encoder
+[ ] implement decoder + attention mechanisms
+[ ] wire together sequence to sequence pipeline
+
+Training setup and optimization [5/25/26 - 6/1/26]
+[ ] training loop
+[ ] ROUGE scores
+[ ] batch processing
+
+Evaluation and analysis [6/2/26 - 6/9/26]
+[ ] hyperparameter tuning - learning rate, batch size, decoding parameters
+
+Documentation and reporting [6/11]/26 - 5/13/26]
+[ ] technical write up
+[ ] results analysis
+[ ] architectural diagrams
+[ ] presentation materials
 
 ## 3. Iteration Points
 
@@ -114,7 +137,7 @@ Contingency time for unexpected issues
 
 Provide specific dates for:
 
-Project critique submission
-Final implementation completion
-Documentation and presentation preparation
+Project critique submission [6/10-11/26]
+Final implementation completion [6/9/26]
+Documentation and presentation preparation [6/11-13/26]
 Final submission [6/14/2026]
