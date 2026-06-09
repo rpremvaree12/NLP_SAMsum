@@ -75,7 +75,7 @@ For summarization to be useful it must be fast enough to feel seamless. Performa
 + Model inference cost within budget thresholds suitable for production deployment
 + Scalability to handle concurrent summarization requests without degradation
 
-## Sources
+## 5. Sources
 
 - Pumble. *State of Internal Communication 2026*. https://pumble.com/learn/communication/communication-statistics/
 
@@ -123,39 +123,20 @@ For summarization to be useful it must be fast enough to feel seamless. Performa
 ```mermaid
 flowchart TD
     A[("SAMsum Dataset
-    16,000+ dialogue–summary pairs")] --> B
+    16,000+ dialogue–summary pairs")]
 
-    subgraph B["Preprocessing"]
-        B1[Tokenization]
-        B2[Speaker turn formatting]
-        B3[Train / Validation / Test split]
-    end
+    A --> B["PREPROCESSING
+    Tokenization · Speaker turn formatting · Train / Val / Test split"]
 
     B --> C[("Pre-trained Model
     BART / T5 / PEGASUS")]
 
-    C --> D
+    C --> D["FINE-TUNING Supervised training · Hyperparameter optimization · Early stopping"]
 
-    subgraph D["Fine-tuning"]
-        D1[Supervised training on SAMsum pairs]
-        D2[Hyperparameter optimization]
-        D3[Early stopping on validation loss]
-    end
-
-    D --> E
-
-    subgraph E["Evaluation"]
-        E1[ROUGE-1 / ROUGE-2 / ROUGE-L]
-        E2[Human evaluation]
-    end
-
-    E --> F
-
-    subgraph F["Deployment"]
-        F1[Model quantization / distillation]
-        F2[REST API]
-        F3[Latency and throughput validation]
-    end
+    D --> E["EVALUATION
+    ROUGE-1 / ROUGE-2 / ROUGE-L · Human evaluation"]
+    E --> F["DEPLOYMENT
+    Quantization / distillation · REST API · Latency validation"]
 ```
 ---
 
@@ -200,76 +181,94 @@ The outputs of this project are not academic artifacts. ROUGE scores establish c
 
 # Timeline and Scope
 
+| Phase | Dates | Key Tasks |
+|---|---|---|
+| Research & Preparation | 5/6 - 5/11 | Lit review, dataset acquisition, pipeline sketch |
+| Data Preprocessing | 5/6 - 5/11 | EDA, tokenization, formatting |
+| Model Architecture | 5/12 - 5/19 | Configure model, implement decoder, wire pipeline |
+| Integration Review | 5/20 - 5/24 | End-to-end test, baseline ROUGE |
+| Training & Optimization | 5/25 - 6/1 | Training loop, ROUGE tracking, batch processing |
+| Evaluation & Analysis | 6/2 - 6/9 | Hyperparameter tuning, ROUGE eval, human review |
+| Documentation | 6/11 - 6/13 | Write-up, diagrams, presentation |
+
 ## 1. Research and Preparation Phase
-[5/6/26 - 5/11/26] ~ 12 hours
+**[5/6/26 - 5/11/26] — ~12 hours**
 
-Demonstrate how your approach:
+- Literature review of dialogue summarization and transformer-based encoder-decoder architectures
+- Acquire SAMsum dataset and conduct initial exploration of conversation structure, length distributions, and summarization patterns
+- Sketch preprocessing pipeline and confirm model architecture direction (BART, T5, or PEGASUS)
 
-+ Fulfills all project deliverable requirements
-+ Addresses the core business needs
-+ Balances technical performance with practical considerations
-+ Produces outputs that are meaningful for the business context
-
-lit review of dialogue summarization and BERT-based architectures
-acquire datasets and EDA for conversation structure, length dist. summariation patterns
-preprocessing pipeline sketch and confirm model architecture direction
+---
 
 ## 2. Implementation Phases
 
+**Data Preprocessing and Exploration [5/6/26 - 5/11/26]**
+- ✅ EDA — conversation lengths, turn counts, summary quality, length distributions
+- ✅ Raw dialogues cleaned, tokenized, and formatted for sequence-to-sequence input (truncation, padding)
 
-Break down the project into time-bound stages:
+**Model Architecture Implementation [5/12/26 - 5/19/26]**
+- ✅ Configure pre-trained encoder-decoder model (BART / T5 / PEGASUS)
+- ✅ Implement decoder and attention mechanisms
+- ✅ Wire together full sequence-to-sequence pipeline
 
-Data preprocessing and exploration [5/6/26 - 5/11/26]
-[ ] EDA - conv. lengths, turn counts, summary quality, class distributions
-[ ] raw dialogues cleaned, tokenized, formatted for BERT (truncation, padding)
+**Integration and Pre-training Review [5/20/26 - 5/24/26]**
+- ✅ End-to-end pipeline test on a small data sample
+- ✅ Validate tokenization, input formatting, and output generation
+- ✅ Confirm baseline ROUGE scores before fine-tuning begins
 
-Model architecture implementation [5/12/26 - 5/19/26]
-[ ] configure pre-trained encoder
-[ ] implement decoder + attention mechanisms
-[ ] wire together sequence to sequence pipeline
+**Training Setup and Optimization [5/25/26 - 6/1/26]**
+- ✅ Training loop implementation
+- ✅ ROUGE score tracking across epochs
+- ✅ Batch processing, gradient accumulation, mixed precision training
 
-Training setup and optimization [5/25/26 - 6/1/26]
-[ ] training loop
-[ ] ROUGE scores
-[ ] batch processing
+**Evaluation and Analysis [6/2/26 - 6/9/26]**
+- [ ] Hyperparameter tuning — learning rate, batch size, decoding parameters
+- [ ] ROUGE-1, ROUGE-2, ROUGE-L evaluation on test set
+- [ ] Human evaluation of summary quality
 
-Evaluation and analysis [6/2/26 - 6/9/26]
-[ ] hyperparameter tuning - learning rate, batch size, decoding parameters
+**Documentation and Reporting [6/11/26 - 6/13/26]**
+- [ ] Technical write-up
+- [ ] Results analysis
+- [ ] Architectural diagrams
+- [ ] Presentation materials
 
-Documentation and reporting [6/11]/26 - 5/13/26]
-[ ] technical write up
-[ ] results analysis
-[ ] architectural diagrams
-[ ] presentation materials
+---
 
 ## 3. Iteration Points
 
-Identify specific points for:
+**After initial training run (~ 6/1/26)**
+Review validation loss curves and ROUGE scores. If results fall below target thresholds, adjust learning rate, batch size, or decoding parameters before the full evaluation phase begins.
 
-Model refinement based on initial results
-Incorporating feedback from project critiques
-Exploring alternative approaches if initial results are unsatisfactory
+**After evaluation (~ 6/9/26)**
+Incorporate feedback from project critiques into the final write-up. If ROUGE scores are unsatisfactory, explore alternative pre-trained checkpoints or decoding strategies such as adjusted beam search width or length penalty.
 
-## 4. Risk management
-Acknowledge potential challenges and how they affect timing:
+**Contingency (6/10/26)**
+One unscheduled day before documentation begins, reserved for unexpected issues surfaced during evaluation or feedback incorporation.
 
-Compute resource limitations and mitigation strategies
-Technical roadblocks that might require additional research
-Contingency time for unexpected issues
->The primary technical risk is computational intensity during model training. Although the dataset is a manageable 14,000 rows, fine-tuning a BERT-based encoder-decoder is resource-intensive by nature: the encoder runs a full transformer forward pass over every token in every conversation, and training requires storing gradients and activations for backpropagation across both encoder and decoder. Dialogue inputs also tend to be long, compounding per-sample cost across multiple training epochs.
+---
+
+## 4. Risk Management
+
+**Computational Intensity**
+
+The primary technical risk is computational intensity during model training. Although the SAMsum dataset is a manageable 16,000 rows, fine-tuning a transformer-based encoder-decoder is resource-intensive by nature: the encoder runs a full forward pass over every token in every conversation, and training requires storing gradients and activations for backpropagation across both encoder and decoder. Dialogue inputs also tend to be long, compounding per-sample cost across multiple training epochs.
+
 The following mitigations are built into the project plan:
 
-> Input truncation: capping conversation length at 512 tokens to control per-sample compute cost without significantly degrading summary quality
-Checkpoint saving: model weights saved at regular intervals to prevent full training restarts in the event of interruption or hardware failure
-Fallback configuration: if training time exceeds estimates, a smaller pre-trained checkpoint (bert-base rather than bert-large) or reduced batch size with gradient accumulation will be used as a drop-in alternative
-Front-loaded architecture decisions: finalizing the model design during the pre-pitch phase (May 12–19) ensures no architectural uncertainty delays the training run when compute time is most constrained
+- **Input truncation** — capping conversation length at 512 tokens to control per-sample compute cost without significantly degrading summary quality
+- **Checkpoint saving** — model weights saved at regular intervals to prevent full training restarts in the event of interruption or hardware failure
+- **Fallback configuration** — if training time exceeds estimates, a smaller pre-trained checkpoint (bart-base rather than bart-large, or t5-small rather than t5-base) will be used as a drop-in alternative
+- **Front-loaded architecture decisions** — finalizing the model design during the architecture phase (5/12/26 - 5/19/26) ensures no architectural uncertainty delays the training run when compute time is most constrained
 
-> Beyond compute, secondary risks include unexpected data quality issues surfaced during preprocessing and technical roadblocks during decoder implementation. Approximately 6 hours of unallocated time in the final week serves as contingency for either. Weekends are kept minimally scheduled throughout to preserve additional buffer capacity.
+**Secondary Risks**
+
+Unexpected data quality issues may be surfaced during preprocessing, and technical roadblocks may arise during decoder implementation. Approximately 6 hours of unallocated time in the final week serves as contingency for either. The unscheduled day on 6/10/26 and lightly scheduled weekends throughout preserve additional buffer capacity.
+
+---
+
 ## 5. Final Delivery
 
-Provide specific dates for:
-
-+ [ ] Project critique submission [6/10-11/26]
-+ [ ] Final implementation completion [6/9/26]
-+ [ ] Documentation and presentation preparation [6/11-13/26]
-+ Final submission [6/14/2026]
+- [ ] Final implementation completion — **6/9/26**
+- [ ] Project critique submission — **6/10/26 - 6/11/26**
+- [ ] Documentation and presentation preparation — **6/11/26 - 6/13/26**
+- [ ] Final submission — **6/14/26**
